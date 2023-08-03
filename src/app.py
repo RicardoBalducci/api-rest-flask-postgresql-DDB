@@ -19,7 +19,7 @@ def page_not_found(error):
 if __name__ == '__main__':
     app.config.from_object(config['development'])
     #blueprint
-    app.register_ (Customer.main,url_prefix='/customers')#redireccion para customers
+    app.register_blueprint(Customer.main,url_prefix='/customers')#redireccion para customers
     app.register_blueprint(Order.main,url_prefix='/orders')#redireccion para orders
     #url_prefix=indicamos cual es la ruta raiz
     #manejador de error
