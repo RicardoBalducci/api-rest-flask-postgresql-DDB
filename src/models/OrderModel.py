@@ -25,6 +25,60 @@ class OrderModel():
         except Exception as ex:#en caso de error
             raise Exception(ex)#se muestra
 
+    #Método para ver todos los elementos en orden de dia de las ordenes
+    @classmethod
+    def get_date(self, datetime):
+        try:
+            connection = get_connection()#establecemos la conexion
+            orders = []
+            with connection.cursor() as cursor:
+                #SQL para seleccionar un solo elemento de la tabla orders
+                cursor.execute("SELECT order_number, quantity, payment_method, remarks, city, municipality, cedula, total, payment_screenshot, status, delivery_amount, datetime FROM orders WHERE datetime = %s", (datetime,))
+                row = cursor.fetchone()
+                if row != None:
+                    order = Order(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
+                    orders.append(order.to_JSON())
+            connection.close()
+            return orders
+        except Exception as ex:#en caso de error
+            raise Exception(ex)#se muestra
+
+    #Método para ver todos los elementos en orden de status de las ordenes
+    @classmethod
+    def get_status(self, status):
+        try:
+            connection = get_connection()#establecemos la conexion
+            orders = []
+            with connection.cursor() as cursor:
+                #SQL para seleccionar un solo elemento de la tabla orders
+                cursor.execute("SELECT order_number, quantity, payment_method, remarks, city, municipality, cedula, total, payment_screenshot, status, delivery_amount, datetime FROM orders WHERE status = %s ", (status,))
+                row = cursor.fetchone()
+                if row != None:
+                    order = Order(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
+                    orders.append(order.to_JSON())
+            connection.close()
+            return orders
+        except Exception as ex:#en caso de error
+            raise Exception(ex)#se muestra
+
+    #Método para ver todos los elementos en orden de cedula de las ordenes
+    @classmethod
+    def get_cedula(self, cedula):
+        try:
+            connection = get_connection()#establecemos la conexion
+            orders = []
+            with connection.cursor() as cursor:
+                #SQL para seleccionar un solo elemento de la tabla orders
+                cursor.execute("SELECT order_number, quantity, payment_method, remarks, city, municipality, cedula, total, payment_screenshot, status, delivery_amount, datetime FROM orders WHERE  cedula = %s", (cedula,))
+                row = cursor.fetchone()
+                if row != None:
+                    order = Order(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11])
+                    orders.append(order.to_JSON())
+            connection.close()
+            return orders
+        except Exception as ex:#en caso de error
+            raise Exception(ex)#se muestra
+
     #Método para buscar una sola orden
     @classmethod
     def get_order(self, order_number):
