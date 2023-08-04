@@ -12,10 +12,9 @@ from models.entities.Order import Order
 # Models
 from models.OrderModel import OrderModel
 
-
-
 main = Blueprint('pedido_blueprint',__name__)
 
+#Ruta para ver todos los elementos
 @main.route('/')#
 def get_orders():#llamamos a todos los elementos
     try:#manejo de excepcion
@@ -45,7 +44,6 @@ def get_orders():#llamamos a todos los elementos
     except Exception as ex:#en caso de error
         return jsonify({'message': str(ex)}), 500#muestra mensaje de error
 
-
 #Buscar un orden en particular
 @main.route('/<order_number>')
 def get_order(order_number):#llamamos a un  elemento
@@ -57,9 +55,7 @@ def get_order(order_number):#llamamos a un  elemento
             return jsonify({'message':'ocurrio un error'}), 404#si no muestra un error
     except Exception as ex:#en caso de error
         return jsonify({'message': str(ex)}), 500#muestra mensaje de error
-
-
-
+        
 #Ingresar Orden
 @main.route('/', methods=['POST'])
 def add_order():#añadimos una orden
@@ -99,15 +95,11 @@ def update_status(order_number):
             return jsonify({'message': "error al modificar"}), 404#en caso de error mostramos
     except Exception as ex:#en caso de error mostramos
         return jsonify({'message': str(ex)}), 500#en caso de error mostramos
-
-
-#IMAGEN
+        
+#imagen
 @main.route('/<order_number>/payment-screenshot', methods=['POST'])
 def add_img(order_number):
     try:
-        return jsonify({'m':'m'})
+        return jsonify({'message':'pass'})
     except Exception as ex:#en caso de error mostramos
         return jsonify({'message': str(ex)}), 500#en caso de error mostramos
-
-
-
