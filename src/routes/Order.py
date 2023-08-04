@@ -19,10 +19,32 @@ main = Blueprint('pedido_blueprint',__name__)
 @main.route('/')#
 def get_orders():#llamamos a todos los elementos
     try:#manejo de excepcion
+        datetime = request.args.get('date')#buscamos como argumento el dato date
+        status = request.args.get('status')#buscamos como argumento el dato status
+        cedula = request.args.get('cedula')#buscamos como argumento el dato cedula
+        if datetime:
+            orders = OrderModel.get_date(datetime)
+            if orders != None:#si order es diferente de None
+                return jsonify(orders)#retorna un json de order
+            else:
+                return jsonify({'message':'ocurrio un error'}), 404#si no muestra un error
+        if status:
+            orders = OrderModel.get_status(status)
+            if orders != None:#si order es diferente de None
+                return jsonify(orders)#retorna un json de order
+            else:
+                return jsonify({'message':'ocurrio un error'}), 404#si no muestra un error
+        if cedula:
+            orders = OrderModel.get_cedula(cedula)#llamamos a la funcion ger_orders de OrderModel y la guardamos en orders
+            if orders != None:#si order es diferente de None
+                return jsonify(orders)#retorna un json de order
+            else:
+                return jsonify({'message':'ocurrio un error'}), 404#si no muestra un error
         orders = OrderModel.get_orders()#llamamos a la funcion ger_orders de OrderModel y la guardamos en orders
         return jsonify(orders)#Aqui se retorna en json y se muestra
     except Exception as ex:#en caso de error
         return jsonify({'message': str(ex)}), 500#muestra mensaje de error
+
 
 #Buscar un orden en particular
 @main.route('/<order_number>')
